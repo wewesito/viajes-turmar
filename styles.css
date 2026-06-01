@@ -1230,6 +1230,186 @@ select:focus {
   color: var(--teal);
 }
 
+.platform-band {
+  padding: 84px max(24px, calc((100vw - 1120px) / 2));
+  background: var(--white);
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.platform-card {
+  min-height: 260px;
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+
+.platform-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+}
+
+.platform-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.client-page,
+.legal-page {
+  min-height: 100vh;
+  padding: 116px max(24px, calc((100vw - 1120px) / 2)) 60px;
+}
+
+.client-hero,
+.legal-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.legal-hero {
+  grid-template-columns: 1fr;
+  max-width: 840px;
+}
+
+.client-hero h1,
+.legal-hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  line-height: 0.98;
+}
+
+.client-hero p,
+.legal-hero p {
+  max-width: 700px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.client-status,
+.client-panel,
+.legal-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.client-status span,
+.client-status strong,
+.client-status small {
+  display: block;
+}
+
+.client-status strong {
+  margin: 8px 0;
+  font-size: 1.25rem;
+}
+
+.client-status span,
+.client-status small {
+  color: var(--muted);
+}
+
+.client-grid,
+.legal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.legal-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.client-panel h2,
+.legal-grid h2 {
+  margin: 0 0 16px;
+}
+
+.summary-lines,
+.timeline,
+.message-list,
+.document-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.summary-lines div,
+.timeline div,
+.message-list div,
+.document-grid div,
+.payment-box {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.summary-lines span,
+.summary-lines strong,
+.message-list strong,
+.message-list span,
+.document-grid strong,
+.document-grid span {
+  display: block;
+}
+
+.summary-lines span,
+.message-list span,
+.document-grid span,
+.small-note {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.timeline div {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.timeline strong {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: var(--white);
+  border-radius: 8px;
+  background: var(--teal);
+}
+
+.payment-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.payment-box span,
+.payment-box strong {
+  display: block;
+}
+
+.payment-box span {
+  color: var(--muted);
+}
+
 @media (max-width: 900px) {
   .topbar {
     align-items: stretch;
@@ -1257,7 +1437,11 @@ select:focus {
   .compare-toolbar,
   .confidence-grid,
   .review-grid,
-  .seo-grid {
+  .seo-grid,
+  .platform-grid,
+  .client-hero,
+  .client-grid,
+  .legal-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1332,6 +1516,7 @@ select:focus {
 
   .planner-band,
   .compare-band,
+  .platform-band,
   .destinations,
   .ops-band,
   .private-engine,

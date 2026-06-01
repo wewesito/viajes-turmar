@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Area cliente | Viajes Turmar</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Viajes Turmar">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" fill="#8bd0f4" />
+            <circle cx="34" cy="32" r="18" fill="#20a8e8" />
+            <path d="M24 20c5-4 15-4 22 2-5 3-9 5-15 4-4-.6-6-2-7-6Z" fill="#086c68" />
+            <path d="M17 34c4-8 11-10 17-7 1 8-4 15-13 15-3-1-4-4-4-8Z" fill="#0aa676" />
+            <path d="M36 45c-6 1-12-1-16-6 8-4 16-2 22 3-1 2-3 3-6 3Z" fill="#08766f" />
+            <path d="M13 45c9 8 27 10 39-4" fill="none" stroke="#0b2630" stroke-width="5" stroke-linecap="round" />
+            <path d="M14 45c14-1 27-8 38-21" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" />
+            <path d="M46 21l10 5-10 5 3-5-3-5Z" fill="#fff" />
+          </svg>
+        </span>
+        <span>Viajes Turmar</span>
+      </a>
+      <nav class="nav" aria-label="Cliente">
+        <a href="#viaje">Viaje</a>
+        <a href="#pagos">Pagos</a>
+        <a href="#documentos">Documentos</a>
+      </nav>
+      <a class="nav-action" href="index.html">Volver</a>
+    </header>
+
+    <main class="client-page">
+      <section class="client-hero">
+        <div>
+          <p class="eyebrow">Area cliente demo</p>
+          <h1>Tu viaje a Japon esencial</h1>
+          <p>
+            Vista simulada para que el cliente pueda seguir propuesta, pagos, documentos,
+            mensajes y proximos pasos desde cualquier dispositivo.
+          </p>
+        </div>
+        <div class="client-status">
+          <span>Estado</span>
+          <strong>Propuesta enviada</strong>
+          <small>Ref. TUR-JPN-2601</small>
+        </div>
+      </section>
+
+      <section class="client-grid" id="viaje">
+        <article class="client-panel">
+          <p class="eyebrow">Resumen</p>
+          <h2>Japon premium para 2 viajeros</h2>
+          <div class="summary-lines">
+            <div><span>Salida</span><strong>Madrid · Octubre 2026</strong></div>
+            <div><span>Duracion</span><strong>12 noches</strong></div>
+            <div><span>Estimacion</span><strong>6.840 EUR</strong></div>
+            <div><span>Agente</span><strong>Alvaro</strong></div>
+          </div>
+        </article>
+        <article class="client-panel">
+          <p class="eyebrow">Proximos pasos</p>
+          <div class="timeline">
+            <div><strong>1</strong><span>Validar hoteles y trenes con mayoristas.</span></div>
+            <div><strong>2</strong><span>Ajustar presupuesto final y condiciones.</span></div>
+            <div><strong>3</strong><span>Enviar enlace de reserva o señal.</span></div>
+            <div><strong>4</strong><span>Preparar documentacion final.</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="client-grid" id="pagos">
+        <article class="client-panel">
+          <p class="eyebrow">Pago seguro demo</p>
+          <h2>Reserva pendiente de confirmacion</h2>
+          <div class="payment-box">
+            <div><span>Señal recomendada</span><strong>980 EUR</strong></div>
+            <button class="button primary" type="button">Generar enlace de pago</button>
+          </div>
+          <p class="small-note">Demo visual. Para pagos reales habria que conectar Stripe, Redsys o banco.</p>
+        </article>
+        <article class="client-panel">
+          <p class="eyebrow">Mensajes</p>
+          <div class="message-list">
+            <div><strong>Viajes Turmar</strong><span>Estamos revisando disponibilidad con proveedores.</span></div>
+            <div><strong>Cliente</strong><span>Nos interesa incluir una noche en ryokan.</span></div>
+            <div><strong>Viajes Turmar</strong><span>Lo añadimos como alternativa premium.</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="client-panel" id="documentos">
+        <p class="eyebrow">Documentos</p>
+        <h2>Preparados para el cierre</h2>
+        <div class="document-grid">
+          <div><strong>Presupuesto PDF</strong><span>Borrador</span></div>
+          <div><strong>Condiciones de viaje</strong><span>Pendiente revision</span></div>
+          <div><strong>Seguro recomendado</strong><span>Opcional</span></div>
+          <div><strong>Documentacion final</strong><span>Tras reserva</span></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
