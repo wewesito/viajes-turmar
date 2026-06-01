@@ -30,6 +30,23 @@ por:
 const PRIVATE_SEARCH_API_URL = "/.netlify/functions/search";
 ```
 
+## Gestion y registros
+
+La web incluye un panel gestor en:
+
+```text
+admin.html
+```
+
+Tambien incluye endpoints de plantilla para centralizar datos si publicas en Netlify u otro hosting con funciones:
+
+```text
+netlify/functions/lead.js
+netlify/functions/analytics.js
+```
+
+En GitHub Pages esos endpoints no se ejecutan, porque GitHub Pages solo sirve archivos estaticos. Para registros centralizados usa Formspree, Airtable, Supabase, CRM o despliega en Netlify/Vercel con funciones.
+
 ## Opcion recomendada: GitHub Pages
 
 1. Crea un repositorio publico en GitHub llamado `viajes-turmar`.
@@ -50,7 +67,12 @@ https://wewesito.github.io/viajes-turmar/
 - `index.html`
 - `styles.css`
 - `script.js`
+- `admin.html`
+- `admin.js`
 - `.nojekyll`
+- `GESTION.md`
 - `assets/hero-travel-agency.png`
 - `assets/logo-viajes-turmar.jpg`
 - `netlify/functions/search.js`
+- `netlify/functions/lead.js`
+- `netlify/functions/analytics.js`

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel gestor | Viajes Turmar</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Viajes Turmar">
+        <span class="brand-mark">
+          <img src="data:image/jpeg;base64,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" alt="" />
+        </span>
+        <span>Viajes Turmar</span>
+      </a>
+      <nav class="nav" aria-label="Gestión">
+        <a href="index.html">Web</a>
+        <a href="#solicitudes">Solicitudes</a>
+        <a href="#integraciones">Integraciones</a>
+      </nav>
+      <a class="nav-action" href="index.html#automatizador">Nueva solicitud</a>
+    </header>
+
+    <main class="admin-page">
+      <section class="admin-hero">
+        <div>
+          <p class="eyebrow">Gestión comercial</p>
+          <h1>Panel gestor</h1>
+          <p class="hero-copy">
+            Vista operativa para revisar solicitudes, eventos y estado de integraciones. En modo
+            GitHub Pages los datos visibles son locales; al conectar CRM/backend se centralizan.
+          </p>
+        </div>
+        <a class="button secondary" href="index.html">Volver a la web</a>
+      </section>
+
+      <section class="admin-grid" aria-label="Resumen">
+        <div class="admin-stat">
+          <span>Solicitudes locales</span>
+          <strong id="leadCount">0</strong>
+        </div>
+        <div class="admin-stat">
+          <span>Eventos registrados</span>
+          <strong id="eventCount">0</strong>
+        </div>
+        <div class="admin-stat">
+          <span>Valor estimado</span>
+          <strong id="pipelineValue">0 EUR</strong>
+        </div>
+        <div class="admin-stat">
+          <span>Lead medio</span>
+          <strong id="averageScore">0</strong>
+        </div>
+      </section>
+
+      <section class="admin-layout">
+        <div class="admin-panel" id="solicitudes">
+          <h2>Solicitudes recientes</h2>
+          <div class="admin-toolbar">
+            <button class="button primary" id="exportLeads" type="button">Exportar CSV</button>
+            <button class="button ghost" id="refreshAdmin" type="button">Actualizar</button>
+          </div>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Destino</th>
+                  <th>Viaje</th>
+                  <th>Estimación</th>
+                  <th>Score</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody id="adminLeadRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="admin-panel" id="integraciones">
+          <h2>Integraciones</h2>
+          <div class="status-list">
+            <div class="status-item">
+              <div>
+                <strong>Analítica de visitas</strong>
+                <p>GA4, Plausible, Umami o Microsoft Clarity.</p>
+              </div>
+              <span class="status-pill pending">Pendiente</span>
+            </div>
+            <div class="status-item">
+              <div>
+                <strong>Registro de solicitudes</strong>
+                <p>Formspree, Airtable, Supabase, CRM o endpoint propio.</p>
+              </div>
+              <span class="status-pill pending">Pendiente</span>
+            </div>
+            <div class="status-item">
+              <div>
+                <strong>Motor de mayoristas</strong>
+                <p>Capa backend preparada para credenciales privadas.</p>
+              </div>
+              <span class="status-pill pending">Pendiente</span>
+            </div>
+            <div class="status-item">
+              <div>
+                <strong>Exportación local</strong>
+                <p>CSV operativo para revisar datos capturados en este navegador.</p>
+              </div>
+              <span class="status-pill">Activo</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

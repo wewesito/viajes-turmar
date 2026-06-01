@@ -65,25 +65,28 @@ select {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-weight: 800;
   letter-spacing: 0;
   white-space: nowrap;
+  font-size: 1.05rem;
 }
 
 .brand-mark {
   display: grid;
-  width: 46px;
-  height: 46px;
+  width: 54px;
+  height: 54px;
   place-items: center;
   overflow: hidden;
   padding: 3px;
-  border: 1px solid rgba(8, 118, 111, 0.16);
+  border: 1px solid rgba(8, 118, 111, 0.18);
   background: var(--white);
   border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(16, 32, 34, 0.1);
 }
 
-.brand-mark img {
+.brand-mark img,
+.brand-mark svg {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -156,18 +159,16 @@ select {
   align-items: end;
   overflow: hidden;
   padding: 152px max(24px, calc((100vw - 1120px) / 2)) 34px;
+  background:
+    linear-gradient(90deg, rgba(6, 24, 27, 0.72), rgba(6, 24, 27, 0.1)),
+    url("https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=1800&q=80") center / cover;
 }
 
-.hero-image,
 .hero-overlay {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-}
-
-.hero-image {
-  object-fit: cover;
 }
 
 .hero-overlay {
@@ -246,10 +247,40 @@ select {
 }
 
 .planner-band,
+.compare-band,
 .destinations,
 .ops-band,
-.private-engine {
+.private-engine,
+.confidence-band,
+.seo-band {
   padding: 84px max(24px, calc((100vw - 1120px) / 2));
+}
+
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  padding: 0 max(24px, calc((100vw - 1120px) / 2));
+  background: var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.trust-strip div {
+  min-height: 120px;
+  padding: 24px;
+  background: var(--white);
+}
+
+.trust-strip strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.trust-strip span {
+  display: block;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 .section-heading {
@@ -333,6 +364,13 @@ select:focus {
   margin: 20px 0;
 }
 
+.form-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 .check {
   display: inline-flex;
   grid-template-columns: auto auto;
@@ -365,6 +403,12 @@ select:focus {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.crm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .proposal-header h3,
@@ -438,6 +482,115 @@ select:focus {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
+}
+
+.compare-band {
+  background: linear-gradient(180deg, var(--white), var(--paper));
+}
+
+.compare-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px 190px;
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.compare-toolbar strong {
+  display: block;
+  font-size: 1.35rem;
+}
+
+.compare-toolbar span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.result-list {
+  display: grid;
+  gap: 14px;
+}
+
+.result-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 18px;
+  align-items: stretch;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.result-main {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.result-badge {
+  width: fit-content;
+  padding: 6px 9px;
+  color: var(--teal-dark);
+  border-radius: 8px;
+  background: var(--mint);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.result-card h3 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.result-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.result-tags span {
+  padding: 7px 9px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfd;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.result-side {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+  align-content: center;
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+  text-align: right;
+}
+
+.result-side strong {
+  font-size: 1.65rem;
+}
+
+.result-side small,
+.rating {
+  color: var(--muted);
+  font-weight: 800;
 }
 
 .destinations {
@@ -531,6 +684,64 @@ select:focus {
   margin: 0;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.55;
+}
+
+.confidence-band {
+  background: var(--white);
+}
+
+.confidence-grid,
+.review-grid,
+.seo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.confidence-grid article,
+.review-card,
+.seo-grid article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+
+.confidence-grid strong {
+  display: block;
+  color: var(--teal);
+  font-size: 2rem;
+}
+
+.confidence-grid h3,
+.seo-grid h3 {
+  margin: 18px 0 10px;
+}
+
+.confidence-grid p,
+.review-card p,
+.seo-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.review-grid {
+  margin-top: 16px;
+}
+
+.review-card {
+  background: var(--white);
+}
+
+.review-card strong {
+  display: block;
+  margin-top: 16px;
+}
+
+.seo-band {
+  background: linear-gradient(180deg, var(--paper), var(--white));
 }
 
 .ops-layout {
@@ -634,6 +845,133 @@ select:focus {
   font-weight: 900;
 }
 
+.admin-page {
+  min-height: 100vh;
+  padding: 116px max(24px, calc((100vw - 1120px) / 2)) 60px;
+}
+
+.admin-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.admin-hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 0.98;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.admin-stat,
+.admin-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+}
+
+.admin-stat {
+  padding: 18px;
+}
+
+.admin-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.admin-stat strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.8rem;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 22px;
+}
+
+.admin-panel {
+  padding: 22px;
+}
+
+.admin-panel h2 {
+  margin: 0 0 16px;
+  font-size: 1.35rem;
+}
+
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.status-list {
+  display: grid;
+  gap: 10px;
+}
+
+.status-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.status-pill {
+  align-self: start;
+  padding: 6px 8px;
+  color: var(--teal-dark);
+  border-radius: 8px;
+  background: var(--mint);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.status-pill.pending {
+  color: #7a5415;
+  background: #f8ebcf;
+}
+
 @media (max-width: 900px) {
   .topbar {
     align-items: stretch;
@@ -653,8 +991,28 @@ select:focus {
 
   .planner-shell,
   .ops-layout,
-  .engine-grid {
+  .engine-grid,
+  .admin-grid,
+  .admin-layout,
+  .admin-hero,
+  .trust-strip,
+  .compare-toolbar,
+  .confidence-grid,
+  .review-grid,
+  .seo-grid {
     grid-template-columns: 1fr;
+  }
+
+  .result-card {
+    grid-template-columns: 1fr;
+  }
+
+  .result-side {
+    justify-items: start;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+    text-align: left;
   }
 
   .proposal-panel {
@@ -697,9 +1055,12 @@ select:focus {
   }
 
   .planner-band,
+  .compare-band,
   .destinations,
   .ops-band,
-  .private-engine {
+  .private-engine,
+  .confidence-band,
+  .seo-band {
     padding-top: 62px;
     padding-bottom: 62px;
   }

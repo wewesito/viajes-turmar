@@ -1,31 +1,55 @@
 const destinations = {
   grecia: {
     name: "Grecia boutique",
+    country: "Grecia",
     basePerNight: 185,
     flight: 360,
     experiences: ["Catamaran privado en Santorini", "Ruta gastronómica por Atenas", "Hotel boutique junto al mar"],
     days: ["Atenas con guía local", "Mykonos y playas tranquilas", "Santorini al atardecer"],
+    packages: [
+      { title: "Cycladas boutique", category: "boutique", board: "Desayuno", rating: 4.7, margin: 1, tag: "Mas vendido" },
+      { title: "Santorini premium", category: "premium", board: "Media pension", rating: 4.9, margin: 1.28, tag: "Top calidad" },
+      { title: "Grecia en familia", category: "familia", board: "Alojamiento flexible", rating: 4.5, margin: 0.92, tag: "Flexible" },
+    ],
   },
   japon: {
     name: "Japón esencial",
+    country: "Japon",
     basePerNight: 210,
     flight: 780,
     experiences: ["Pase JR optimizado", "Ceremonia del té en Kioto", "Ryokan con onsen"],
     days: ["Tokio contemporáneo", "Kioto cultural", "Alpes japoneses"],
+    packages: [
+      { title: "Japon esencial rail", category: "boutique", board: "Ruta con trenes", rating: 4.8, margin: 1.08, tag: "Ruta optimizada" },
+      { title: "Ryokan premium", category: "premium", board: "Experiencia onsen", rating: 4.9, margin: 1.34, tag: "Premium" },
+      { title: "Japon familiar", category: "familia", board: "Hoteles conectados", rating: 4.6, margin: 0.98, tag: "Comodo" },
+    ],
   },
   "costa-rica": {
     name: "Costa Rica aventura",
+    country: "Costa Rica",
     basePerNight: 165,
     flight: 690,
     experiences: ["Volcán Arenal", "Bosque nuboso", "Playas de Manuel Antonio"],
     days: ["Selva y termas", "Puentes colgantes", "Costa del Pacífico"],
+    packages: [
+      { title: "Pura vida activo", category: "boutique", board: "Eco lodges", rating: 4.6, margin: 1, tag: "Naturaleza" },
+      { title: "Costa Rica premium", category: "premium", board: "Lodges superiores", rating: 4.8, margin: 1.25, tag: "Seleccionado" },
+      { title: "Aventura familiar", category: "familia", board: "Ritmo suave", rating: 4.5, margin: 0.94, tag: "Familias" },
+    ],
   },
   egipto: {
     name: "Egipto cultural",
+    country: "Egipto",
     basePerNight: 150,
     flight: 430,
     experiences: ["Crucero por el Nilo", "Guía egiptólogo privado", "Cena frente a las pirámides"],
     days: ["El Cairo histórico", "Luxor y Karnak", "Nilo en crucero"],
+    packages: [
+      { title: "Egipto clasico", category: "boutique", board: "Circuito guiado", rating: 4.6, margin: 1, tag: "Cultural" },
+      { title: "Nilo premium", category: "premium", board: "Crucero superior", rating: 4.8, margin: 1.22, tag: "Crucero" },
+      { title: "Egipto en familia", category: "familia", board: "Ritmo adaptado", rating: 4.4, margin: 0.9, tag: "Familiar" },
+    ],
   },
 };
 
@@ -51,6 +75,12 @@ const copyProposal = document.querySelector("#copyProposal");
 const leadList = document.querySelector("#leadList");
 const clearLeads = document.querySelector("#clearLeads");
 const engineSource = document.querySelector("#engineSource");
+const formStatus = document.querySelector("#formStatus");
+const resultList = document.querySelector("#resultList");
+const resultCount = document.querySelector("#resultCount");
+const sortResults = document.querySelector("#sortResults");
+const filterCategory = document.querySelector("#filterCategory");
+const appConfig = window.TURMAR_CONFIG || {};
 
 let currentProposal = "";
 
@@ -66,11 +96,48 @@ function getFormData() {
     name: data.get("travelerName")?.trim() || "Viajero",
     email: data.get("email")?.trim() || "",
     destinationKey: data.get("destination"),
+    departure: data.get("departure") || "Madrid",
+    travelMonth: data.get("travelMonth") || "",
     styleKey: data.get("style"),
     travelers: Number(data.get("travelers")) || 1,
     nights: Number(data.get("nights")) || 7,
+    budgetMax: Number(data.get("budgetMax")) || 0,
     preferences: data.getAll("preferences"),
   };
+}
+
+function trackEvent(name, payload = {}) {
+  const event = {
+    id: globalThis.crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    name,
+    payload,
+    path: window.location.pathname,
+    createdAt: new Date().toISOString(),
+  };
+  const events = getStoredItems("viajes-turmar-events").slice(0, 99);
+  localStorage.setItem("viajes-turmar-events", JSON.stringify([event, ...events]));
+
+  if (appConfig.analyticsEndpoint) {
+    const body = JSON.stringify(event);
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(appConfig.analyticsEndpoint, new Blob([body], { type: "application/json" }));
+    } else {
+      fetch(appConfig.analyticsEndpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body,
+        keepalive: true,
+      }).catch(() => {});
+    }
+  }
+}
+
+function getStoredItems(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key)) || [];
+  } catch {
+    return [];
+  }
 }
 
 function calculateProposal(data, privateResult = null) {
@@ -126,6 +193,7 @@ function buildProposal(data, result) {
   const preferenceText = data.preferences.length ? data.preferences.join(", ") : "servicios a medida";
   return [
     `Hola ${data.name}, hemos preparado una solicitud ${result.style.label} para ${result.destination.name}.`,
+    `Salida orientativa desde ${data.departure}${data.travelMonth ? ` en ${data.travelMonth}` : ""}.`,
     `${data.nights} noches para ${data.travelers} viajero(s), incluyendo ${preferenceText}.`,
     `Estimación orientativa pendiente de revisión por un agente: ${currency.format(result.total)}.`,
     `Ruta sugerida: ${result.destination.days.join(" | ")}.`,
@@ -159,32 +227,129 @@ async function renderProposal(saveLead = false, usePrivateEngine = false) {
   const encoded = encodeURIComponent(currentProposal);
   whatsappLink.href = `https://wa.me/?text=${encoded}`;
   emailLink.href = `mailto:${data.email}?subject=${encodeURIComponent("Tu propuesta de viaje con Viajes Turmar")}&body=${encoded}`;
+  renderResults(data, result.total);
 
   if (saveLead) {
-    saveLeadToStorage({
+    const lead = {
       id: globalThis.crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()),
       name: data.name,
       email: data.email,
       destination: result.destination.name,
       total: result.total,
       score: result.score,
+      travelers: data.travelers,
+      nights: data.nights,
+      departure: data.departure,
+      travelMonth: data.travelMonth,
+      budgetMax: data.budgetMax,
+      style: result.style.label,
+      preferences: data.preferences,
+      source: result.source,
       createdAt: new Date().toLocaleString("es-ES", { dateStyle: "short", timeStyle: "short" }),
-    });
+      createdAtIso: new Date().toISOString(),
+    };
+    saveLeadToStorage(lead);
+    await submitLead(lead);
+    trackEvent("lead_submitted", { destination: lead.destination, score: lead.score, total: lead.total });
   }
 }
 
+function buildResults(data, referenceTotal) {
+  const destination = destinations[data.destinationKey];
+  const style = styleMultipliers[data.styleKey];
+  const base = destination.packages.map((item, index) => {
+    const serviceBoost = data.preferences.length * 38 * data.travelers;
+    const total = Math.round((referenceTotal * item.margin + serviceBoost + index * 85) / 10) * 10;
+    const fit = data.budgetMax ? Math.max(48, Math.min(99, 100 - Math.round(((total - data.budgetMax) / data.budgetMax) * 100))) : 86;
+    return {
+      ...item,
+      total,
+      nights: data.nights,
+      travelers: data.travelers,
+      destination: destination.name,
+      style: style.label,
+      fit,
+      included: [item.board, "Vuelos opcionales", "Revision de agente", "Condiciones de mayorista"],
+    };
+  });
+
+  const filtered = filterCategory?.value && filterCategory.value !== "all"
+    ? base.filter((item) => item.category === filterCategory.value)
+    : base;
+
+  return filtered.sort((a, b) => {
+    if (sortResults?.value === "price") return a.total - b.total;
+    if (sortResults?.value === "rating") return b.rating - a.rating;
+    return b.fit + b.rating * 8 - (a.fit + a.rating * 8);
+  });
+}
+
+function renderResults(data, referenceTotal) {
+  if (!resultList || !resultCount) return;
+  const results = buildResults(data, referenceTotal);
+  resultCount.textContent = `${results.length} opciones`;
+  resultList.innerHTML = results
+    .map(
+      (item, index) => `
+        <article class="result-card">
+          <div class="result-main">
+            <div class="result-badge">${item.tag}</div>
+            <h3>${item.title}</h3>
+            <p>${item.destination} · ${item.nights} noches · ${item.travelers} viajero(s) · ${item.style}</p>
+            <div class="result-tags">
+              ${item.included.map((included) => `<span>${included}</span>`).join("")}
+            </div>
+          </div>
+          <div class="result-side">
+            <span class="rating">${item.rating.toFixed(1)} / 5</span>
+            <strong>${currency.format(item.total)}</strong>
+            <small>${item.fit}% encaje</small>
+            <button class="button primary select-result" type="button" data-result-index="${index}">Revisar con agente</button>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
 function getLeads() {
-  try {
-    return JSON.parse(localStorage.getItem("viajes-turmar-leads")) || [];
-  } catch {
-    return [];
-  }
+  return getStoredItems("viajes-turmar-leads");
 }
 
 function saveLeadToStorage(lead) {
   const leads = [lead, ...getLeads()].slice(0, 8);
   localStorage.setItem("viajes-turmar-leads", JSON.stringify(leads));
   renderLeads();
+}
+
+async function submitLead(lead) {
+  if (!appConfig.leadEndpoint) {
+    if (formStatus) {
+      formStatus.textContent = "Solicitud guardada en modo local. Conecta un CRM/Formspree/Airtable para recibirla centralizada.";
+    }
+    return;
+  }
+
+  try {
+    if (formStatus) {
+      formStatus.textContent = "Enviando solicitud al sistema de gestión...";
+    }
+    const response = await fetch(appConfig.leadEndpoint, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(lead),
+    });
+    if (!response.ok) {
+      throw new Error("Lead endpoint failed");
+    }
+    if (formStatus) {
+      formStatus.textContent = "Solicitud recibida. Un agente revisará la propuesta.";
+    }
+  } catch {
+    if (formStatus) {
+      formStatus.textContent = "Solicitud guardada localmente. Revisa la conexión del endpoint de gestión.";
+    }
+  }
 }
 
 function renderLeads() {
@@ -212,11 +377,23 @@ function renderLeads() {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  trackEvent("proposal_requested", getFormData());
   await renderProposal(true, true);
 });
 
 form.addEventListener("input", () => {
   renderProposal(false, false);
+});
+
+sortResults?.addEventListener("change", () => renderProposal(false, false));
+filterCategory?.addEventListener("change", () => renderProposal(false, false));
+
+resultList?.addEventListener("click", (event) => {
+  const button = event.target.closest(".select-result");
+  if (!button) return;
+  trackEvent("result_selected", { index: button.dataset.resultIndex, form: getFormData() });
+  document.querySelector("#automatizador")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  formStatus.textContent = "Opcion seleccionada para revision. Completa tus datos y solicita propuesta.";
 });
 
 copyProposal.addEventListener("click", async () => {
@@ -237,8 +414,10 @@ copyProposal.addEventListener("click", async () => {
 
 clearLeads.addEventListener("click", () => {
   localStorage.removeItem("viajes-turmar-leads");
+  trackEvent("leads_cleared");
   renderLeads();
 });
 
+trackEvent("page_view", { title: document.title });
 renderProposal(false);
 renderLeads();
