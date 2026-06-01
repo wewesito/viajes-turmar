@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viajes Turmar | Agencia de viajes con motor privado</title>
+    <meta
+      name="description"
+      content="Agencia de viajes con motor privado para consultar mayoristas, preparar propuestas personalizadas y hacer seguimiento con agentes especializados."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Viajes Turmar">
+        <span class="brand-mark">
+          <img src="assets/logo-viajes-turmar.jpg" alt="" />
+        </span>
+        <span>Viajes Turmar</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#automatizador">Propuestas</a>
+        <a href="#motor-privado">Motor privado</a>
+        <a href="#destinos">Destinos</a>
+        <a href="#operativa">Operativa</a>
+      </nav>
+      <a class="nav-action" href="#automatizador">Solicitar propuesta</a>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <img
+          class="hero-image"
+          src="assets/hero-travel-agency.png"
+          alt="Mesa de planificación de viajes con portátil, pasaporte y vistas al Mediterráneo"
+        />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Agencia de viajes con motor privado</p>
+          <h1>Viajes Turmar</h1>
+          <p class="hero-copy">
+            Diseñamos viajes a medida combinando tecnología propia, acceso profesional a
+            mayoristas de agencia y seguimiento cercano de un agente especializado.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#automatizador">Solicitar propuesta</a>
+            <a class="button secondary" href="#motor-privado">Ver motor privado</a>
+          </div>
+        </div>
+        <div class="hero-metrics" aria-label="Indicadores de automatización">
+          <div>
+            <strong>Agencia</strong>
+            <span>acceso profesional</span>
+          </div>
+          <div>
+            <strong>1:1</strong>
+            <span>seguimiento experto</span>
+          </div>
+          <div>
+            <strong>360</strong>
+            <span>viaje completo</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="planner-band" id="automatizador">
+        <div class="section-heading">
+          <p class="eyebrow">Propuesta asistida</p>
+          <h2>Propuesta, presupuesto y seguimiento con un agente especializado.</h2>
+          <p>
+            Recogemos las preferencias del cliente y preparamos una solicitud ordenada para
+            contrastarla con disponibilidad real, condiciones de mayoristas y criterio profesional.
+          </p>
+        </div>
+
+        <div class="planner-shell">
+          <form class="planner-panel" id="tripForm">
+            <div class="form-grid">
+              <label>
+                Nombre
+                <input id="travelerName" name="travelerName" type="text" placeholder="Ej. Marta" required />
+              </label>
+              <label>
+                Email
+                <input id="email" name="email" type="email" placeholder="marta@email.com" required />
+              </label>
+              <label>
+                Destino preferido
+                <select id="destination" name="destination">
+                  <option value="grecia">Grecia boutique</option>
+                  <option value="japon">Japón esencial</option>
+                  <option value="costa-rica">Costa Rica aventura</option>
+                  <option value="egipto">Egipto cultural</option>
+                </select>
+              </label>
+              <label>
+                Tipo de viaje
+                <select id="style" name="style">
+                  <option value="romantico">Romántico</option>
+                  <option value="familia">Familia</option>
+                  <option value="aventura">Aventura suave</option>
+                  <option value="premium">Premium</option>
+                </select>
+              </label>
+              <label>
+                Viajeros
+                <input id="travelers" name="travelers" type="number" min="1" max="12" value="2" />
+              </label>
+              <label>
+                Noches
+                <input id="nights" name="nights" type="number" min="3" max="21" value="7" />
+              </label>
+            </div>
+
+            <div class="preference-row" aria-label="Preferencias">
+              <label class="check">
+                <input type="checkbox" name="preferences" value="vuelos" checked />
+                Vuelos
+              </label>
+              <label class="check">
+                <input type="checkbox" name="preferences" value="hotel" checked />
+                Hotel
+              </label>
+              <label class="check">
+                <input type="checkbox" name="preferences" value="traslados" />
+                Traslados
+              </label>
+              <label class="check">
+                <input type="checkbox" name="preferences" value="experiencias" checked />
+                Experiencias
+              </label>
+            </div>
+
+            <button class="button primary wide" type="submit">Preparar solicitud de viaje</button>
+          </form>
+
+          <aside class="proposal-panel" aria-live="polite">
+            <div class="proposal-header">
+              <div>
+                <p class="eyebrow">Solicitud activa</p>
+                <h3 id="proposalTitle">Grecia boutique para dos</h3>
+              </div>
+              <span id="leadScore" class="score">Lead 86</span>
+            </div>
+            <div class="price-line">
+              <span>Estimación orientativa</span>
+              <strong id="budget">2.980 EUR</strong>
+            </div>
+            <div class="engine-status" id="engineSource">Motor privado preparado para conectar mayoristas</div>
+            <div class="itinerary" id="itinerary"></div>
+            <div class="automation-actions">
+              <a class="button secondary" id="whatsappLink" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
+              <a class="button secondary" id="emailLink" href="#">Email</a>
+              <button class="button ghost" id="copyProposal" type="button">Copiar solicitud</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="private-engine" id="motor-privado">
+        <div class="section-heading compact">
+          <p class="eyebrow">Búsqueda profesional</p>
+          <h2>Motor privado preparado para integrar vuestras mayoristas.</h2>
+          <p>
+            La web queda lista para conectar, cuando tengáis los accesos, con proveedores que no
+            están disponibles para el público general.
+          </p>
+        </div>
+        <div class="engine-grid">
+          <article class="engine-card">
+            <span class="engine-number">01</span>
+            <h3>Mayoristas de agencia</h3>
+            <p>Conexión prevista con proveedores privados, tarifas negociadas y disponibilidad real.</p>
+          </article>
+          <article class="engine-card">
+            <span class="engine-number">02</span>
+            <h3>Capa segura</h3>
+            <p>Las credenciales vivirán en backend, protegidas del navegador y del cliente final.</p>
+          </article>
+          <article class="engine-card">
+            <span class="engine-number">03</span>
+            <h3>Validación humana</h3>
+            <p>El agente revisa condiciones, alternativas, cupos, suplementos y detalles antes de cerrar.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="destinations" id="destinos">
+        <div class="section-heading">
+          <p class="eyebrow">Catálogo base</p>
+          <h2>Destinos presentados con criterio comercial y posibilidad de personalización.</h2>
+        </div>
+        <div class="destination-grid">
+          <article class="destination-card">
+            <span>01</span>
+            <h3>Grecia boutique</h3>
+            <p>Islas Cícladas, hoteles con encanto y experiencias privadas al atardecer.</p>
+          </article>
+          <article class="destination-card">
+            <span>02</span>
+            <h3>Japón esencial</h3>
+            <p>Tokio, Kioto y Alpes japoneses con rutas culturales y logística ferroviaria.</p>
+          </article>
+          <article class="destination-card">
+            <span>03</span>
+            <h3>Costa Rica aventura</h3>
+            <p>Selva, volcanes, playas y alojamientos sostenibles para viajar con calma.</p>
+          </article>
+          <article class="destination-card">
+            <span>04</span>
+            <h3>Egipto cultural</h3>
+            <p>Crucero por el Nilo, visitas guiadas y noches en hoteles históricos.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="ops-band" id="operativa">
+        <div class="section-heading">
+          <p class="eyebrow">Operativa comercial</p>
+          <h2>Panel de solicitudes y acciones para que el equipo priorice mejor.</h2>
+        </div>
+        <div class="ops-layout">
+          <div class="workflow">
+            <div class="workflow-step">
+              <span>1</span>
+              <div>
+                <h3>Captura</h3>
+                <p>El formulario guarda la solicitud y la deja lista para consulta del motor privado.</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <span>2</span>
+              <div>
+                <h3>Agente</h3>
+                <p>Un agente revisa disponibilidad, condiciones de mayoristas y próximos pasos.</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <span>3</span>
+              <div>
+                <h3>Cierre</h3>
+                <p>El panel prioriza oportunidades para contactar antes a las solicitudes más claras.</p>
+              </div>
+            </div>
+          </div>
+          <div class="crm-panel">
+            <div class="crm-header">
+              <h3>Leads recientes</h3>
+              <button id="clearLeads" class="button ghost" type="button">Limpiar</button>
+            </div>
+            <div id="leadList" class="lead-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Viajes Turmar</span>
+      <span>Web preparada para conectar con motor privado de mayoristas, CRM y seguimiento comercial.</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
