@@ -353,6 +353,10 @@ async function submitLead(lead) {
 }
 
 function renderLeads() {
+  if (!leadList) {
+    return;
+  }
+
   const leads = getLeads();
   if (!leads.length) {
     leadList.innerHTML = `<div class="empty-state">Aún no hay leads guardados. Genera una propuesta para ver el panel en acción.</div>`;
@@ -412,7 +416,7 @@ copyProposal.addEventListener("click", async () => {
   }, 1500);
 });
 
-clearLeads.addEventListener("click", () => {
+clearLeads?.addEventListener("click", () => {
   localStorage.removeItem("viajes-turmar-leads");
   trackEvent("leads_cleared");
   renderLeads();
