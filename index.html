@@ -36,6 +36,7 @@
         <a href="#comparador">Comparador</a>
         <a href="#motor-privado">Motor privado</a>
         <a href="#confianza">Confianza</a>
+        <a href="#area-cliente">Cliente</a>
       </nav>
       <a class="nav-action" href="#automatizador">Solicitar propuesta</a>
     </header>
@@ -375,14 +376,112 @@
               <h3>Area cliente</h3>
               <p>Seguimiento de propuesta, pagos demo, mensajes, documentos y proximos pasos.</p>
             </div>
-            <a class="button secondary" href="cliente.html">Ver area cliente</a>
+            <a class="button secondary" href="#area-cliente">Ver area cliente</a>
           </article>
           <article class="platform-card">
             <div>
               <h3>Legal y confianza</h3>
               <p>Base para privacidad, cookies, condiciones, pagos y gestion de mayoristas.</p>
             </div>
-            <a class="button secondary" href="legal.html">Ver base legal</a>
+            <a class="button secondary" href="#legal">Ver base legal</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="client-embedded" id="area-cliente">
+        <div class="client-hero embedded">
+          <div>
+            <p class="eyebrow">Area cliente integrada</p>
+            <h2>Seguimiento del viaje, pagos y documentos en la misma experiencia.</h2>
+            <p>
+              Vista demo para que el cliente vea el estado de su propuesta, proximos pasos,
+              mensajes, documentos y pago de señal cuando la reserva este confirmada.
+            </p>
+          </div>
+          <div class="client-status">
+            <span>Estado demo</span>
+            <strong>Propuesta enviada</strong>
+            <small>Ref. TUR-JPN-2601</small>
+          </div>
+        </div>
+
+        <div class="client-grid">
+          <article class="client-panel">
+            <p class="eyebrow">Resumen</p>
+            <h3>Japon premium para 2 viajeros</h3>
+            <div class="summary-lines">
+              <div><span>Salida</span><strong>Madrid · Octubre 2026</strong></div>
+              <div><span>Duracion</span><strong>12 noches</strong></div>
+              <div><span>Estimacion</span><strong>6.840 EUR</strong></div>
+              <div><span>Agente</span><strong>Alvaro</strong></div>
+            </div>
+          </article>
+          <article class="client-panel">
+            <p class="eyebrow">Proximos pasos</p>
+            <div class="timeline">
+              <div><strong>1</strong><span>Validar hoteles y trenes con mayoristas.</span></div>
+              <div><strong>2</strong><span>Ajustar presupuesto final y condiciones.</span></div>
+              <div><strong>3</strong><span>Enviar enlace de reserva o señal.</span></div>
+              <div><strong>4</strong><span>Preparar documentacion final.</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="client-grid">
+          <article class="client-panel">
+            <p class="eyebrow">Pago seguro demo</p>
+            <h3>Reserva pendiente de confirmacion</h3>
+            <div class="payment-box">
+              <div><span>Señal recomendada</span><strong>980 EUR</strong></div>
+              <button class="button primary" type="button">Generar enlace de pago</button>
+            </div>
+            <p class="small-note">Demo visual. Para pagos reales habria que conectar Stripe, Redsys o banco.</p>
+          </article>
+          <article class="client-panel">
+            <p class="eyebrow">Documentos</p>
+            <div class="document-grid">
+              <div><strong>Presupuesto PDF</strong><span>Borrador</span></div>
+              <div><strong>Condiciones</strong><span>Pendiente revision</span></div>
+              <div><strong>Seguro recomendado</strong><span>Opcional</span></div>
+              <div><strong>Documentacion final</strong><span>Tras reserva</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="legal-embedded" id="legal">
+        <div class="section-heading">
+          <p class="eyebrow">Legal y cumplimiento</p>
+          <h2>Privacidad, cookies, condiciones y pagos preparados para completar.</h2>
+          <p>
+            Esta base ayuda a que la web parezca completa desde el principio. Antes de trabajar
+            con clientes reales debe revisarse con un asesor y completar los datos fiscales.
+          </p>
+        </div>
+        <div class="legal-grid">
+          <article>
+            <h3>Aviso legal</h3>
+            <p>Completar razon social, NIF/CIF, domicilio, telefono, email y datos registrales.</p>
+          </article>
+          <article>
+            <h3>Privacidad</h3>
+            <p>Informar del uso de datos de contacto, preferencias, presupuesto y seguimiento comercial.</p>
+          </article>
+          <article>
+            <h3>Cookies</h3>
+            <p>Activar consentimiento cuando se conecte GA4, Clarity u otra analitica.</p>
+          </article>
+          <article>
+            <h3>Reservas</h3>
+            <p>Confirmar disponibilidad, precio final y condiciones antes de aceptar pagos.</p>
+          </article>
+          <article>
+            <h3>Pagos</h3>
+            <p>Preparado para Stripe, Redsys o enlace bancario con condiciones claras.</p>
+          </article>
+          <article>
+            <h3>Mayoristas</h3>
+            <p>Credenciales y tarifas privadas siempre desde backend seguro, nunca en navegador.</p>
           </article>
         </div>
       </section>
@@ -433,9 +532,9 @@
     <footer class="footer">
       <span>Viajes Turmar</span>
       <span>
-        <a href="cliente.html">Area cliente</a> ·
+        <a href="#area-cliente">Area cliente</a> ·
         <a href="admin.html">Panel gestor</a> ·
-        <a href="legal.html">Legal</a>
+        <a href="#legal">Legal</a>
       </span>
     </footer>
 

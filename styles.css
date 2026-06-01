@@ -1264,6 +1264,25 @@ select:focus {
   line-height: 1.6;
 }
 
+.client-embedded,
+.legal-embedded {
+  padding: 84px max(24px, calc((100vw - 1120px) / 2));
+}
+
+.client-embedded {
+  background:
+    linear-gradient(180deg, rgba(231, 244, 247, 0.9), rgba(247, 246, 242, 0.96)),
+    var(--paper);
+}
+
+.legal-embedded {
+  background: var(--white);
+}
+
+.client-embedded .client-hero {
+  margin-bottom: 24px;
+}
+
 .client-page,
 .legal-page {
   min-height: 100vh;
