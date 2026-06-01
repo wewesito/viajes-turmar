@@ -80,6 +80,8 @@ const resultList = document.querySelector("#resultList");
 const resultCount = document.querySelector("#resultCount");
 const sortResults = document.querySelector("#sortResults");
 const filterCategory = document.querySelector("#filterCategory");
+const menuToggle = document.querySelector("#menuToggle");
+const siteMenu = document.querySelector("#siteMenu");
 const appConfig = window.TURMAR_CONFIG || {};
 
 let currentProposal = "";
@@ -284,6 +286,15 @@ function buildResults(data, referenceTotal) {
   });
 }
 
+function setMenuOpen(isOpen) {
+  if (!menuToggle || !siteMenu) {
+    return;
+  }
+
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  siteMenu.classList.toggle("is-open", isOpen);
+}
+
 function renderResults(data, referenceTotal) {
   if (!resultList || !resultCount) return;
   const results = buildResults(data, referenceTotal);
@@ -420,6 +431,30 @@ clearLeads?.addEventListener("click", () => {
   localStorage.removeItem("viajes-turmar-leads");
   trackEvent("leads_cleared");
   renderLeads();
+});
+
+menuToggle?.addEventListener("click", (event) => {
+  event.stopPropagation();
+  const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+  setMenuOpen(!isOpen);
+});
+
+siteMenu?.addEventListener("click", (event) => {
+  const link = event.target.closest("a");
+  if (!link) return;
+  setMenuOpen(false);
+});
+
+document.addEventListener("click", (event) => {
+  if (!siteMenu?.classList.contains("is-open")) return;
+  if (event.target.closest(".topbar")) return;
+  setMenuOpen(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setMenuOpen(false);
+  }
 });
 
 trackEvent("page_view", { title: document.title });
