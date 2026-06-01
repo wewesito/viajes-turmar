@@ -248,10 +248,13 @@ select {
 
 .planner-band,
 .compare-band,
+.quick-search,
 .destinations,
 .ops-band,
 .private-engine,
 .confidence-band,
+.service-band,
+.faq-band,
 .seo-band {
   padding: 84px max(24px, calc((100vw - 1120px) / 2));
 }
@@ -304,6 +307,106 @@ select {
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.65;
+}
+
+.quick-search {
+  background: var(--white);
+}
+
+.quick-search-header,
+.final-cta {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+}
+
+.quick-search-header {
+  margin-bottom: 20px;
+}
+
+.quick-search h2,
+.final-cta h2 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.trip-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.trip-tab {
+  min-height: 42px;
+  padding: 0 14px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  font-weight: 900;
+  cursor: default;
+}
+
+.trip-tab.active {
+  color: var(--white);
+  border-color: var(--teal);
+  background: var(--teal);
+}
+
+.quick-grid,
+.service-grid,
+.faq-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.quick-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quick-card,
+.service-grid article,
+.faq-grid details {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+
+.quick-card span {
+  display: inline-flex;
+  padding: 6px 9px;
+  color: var(--teal-dark);
+  border-radius: 8px;
+  background: var(--mint);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.quick-card h3,
+.service-grid h3 {
+  margin: 28px 0 10px;
+  font-size: 1.35rem;
+}
+
+.quick-card p,
+.service-grid p,
+.faq-grid p,
+.final-cta p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.quick-card strong {
+  display: block;
+  margin-top: 18px;
+  font-size: 1.25rem;
 }
 
 .planner-shell {
@@ -740,8 +843,66 @@ select:focus {
   margin-top: 16px;
 }
 
+.service-band {
+  background: var(--white);
+}
+
+.service-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.service-grid article {
+  min-height: 250px;
+  background:
+    linear-gradient(180deg, rgba(225, 243, 239, 0.72), rgba(255, 255, 255, 0) 58%),
+    var(--paper);
+}
+
+.service-grid strong {
+  color: var(--coral);
+  font-size: 0.9rem;
+}
+
 .seo-band {
   background: linear-gradient(180deg, var(--paper), var(--white));
+}
+
+.faq-band {
+  background: var(--paper);
+}
+
+.faq-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.faq-grid details {
+  background: var(--white);
+}
+
+.faq-grid summary {
+  color: var(--ink);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.faq-grid p {
+  margin-top: 12px;
+}
+
+.final-cta {
+  margin: 0 max(24px, calc((100vw - 1120px) / 2)) 84px;
+  padding: 34px;
+  color: var(--white);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(8, 118, 111, 0.96), rgba(16, 32, 34, 0.96)),
+    var(--teal);
+  box-shadow: var(--shadow);
+}
+
+.final-cta .eyebrow,
+.final-cta p {
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .ops-layout {
@@ -1452,10 +1613,13 @@ select:focus {
   .admin-grid,
   .admin-layout,
   .admin-hero,
+  .quick-grid,
   .trust-strip,
   .compare-toolbar,
   .confidence-grid,
   .review-grid,
+  .service-grid,
+  .faq-grid,
   .seo-grid,
   .platform-grid,
   .client-hero,
@@ -1467,6 +1631,8 @@ select:focus {
   .admin-panel-header,
   .admin-actions,
   .admin-toolbar,
+  .quick-search-header,
+  .final-cta,
   .automation-item,
   .launch-item {
     align-items: stretch;
@@ -1536,10 +1702,13 @@ select:focus {
   .planner-band,
   .compare-band,
   .platform-band,
+  .quick-search,
   .destinations,
   .ops-band,
   .private-engine,
   .confidence-band,
+  .service-band,
+  .faq-band,
   .seo-band {
     padding-top: 62px;
     padding-bottom: 62px;
@@ -1551,6 +1720,11 @@ select:focus {
   .footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .final-cta {
+    margin-bottom: 62px;
+    padding: 24px;
   }
 
   .lead-card {
