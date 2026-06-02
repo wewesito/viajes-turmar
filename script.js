@@ -434,7 +434,10 @@ function setMenuOpen(isOpen) {
   }
 
   menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menu de secciones" : "Abrir menu de secciones");
   siteMenu.classList.toggle("is-open", isOpen);
+  siteMenu.hidden = !isOpen;
+  document.body.classList.toggle("menu-is-open", isOpen);
   if (isOpen) {
     trackEvent("menu_open");
   }

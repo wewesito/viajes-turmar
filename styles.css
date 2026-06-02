@@ -45,7 +45,7 @@ select {
 
 .topbar {
   position: fixed;
-  z-index: 10;
+  z-index: 1000;
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
@@ -117,6 +117,7 @@ select {
 
 .menu-toggle {
   position: relative;
+  z-index: 1002;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -159,6 +160,7 @@ select {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
+  z-index: 1001;
   width: min(360px, calc(100vw - 32px));
   display: grid;
   gap: 6px;
@@ -175,7 +177,12 @@ select {
     transform 0.18s ease;
 }
 
+.menu-panel[hidden] {
+  display: none;
+}
+
 .menu-panel.is-open {
+  display: grid;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -1804,6 +1811,13 @@ select:focus {
   .topbar {
     top: 10px;
     width: calc(100% - 20px);
+  }
+
+  .menu-panel {
+    right: 0;
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 96px);
+    overflow: auto;
   }
 
   .brand span:last-child {
