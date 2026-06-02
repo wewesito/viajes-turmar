@@ -82,7 +82,11 @@ const sortResults = document.querySelector("#sortResults");
 const filterCategory = document.querySelector("#filterCategory");
 const menuToggle = document.querySelector("#menuToggle");
 const siteMenu = document.querySelector("#siteMenu");
+const cookieBanner = document.querySelector("#cookieBanner");
+const acceptAnalytics = document.querySelector("#acceptAnalytics");
+const rejectAnalytics = document.querySelector("#rejectAnalytics");
 const appConfig = window.TURMAR_CONFIG || {};
+const privateSearchUrl = appConfig.searchEndpoint || PRIVATE_SEARCH_API_URL;
 
 let currentProposal = "";
 
@@ -109,6 +113,12 @@ function getFormData() {
 }
 
 function trackEvent(name, payload = {}) {
+  const analyticsConsent = localStorage.getItem("turmar-analytics-consent");
+  const essentialEvents = ["proposal_requested", "lead_submitted", "copy_proposal", "whatsapp_click", "email_click"];
+  if (analyticsConsent === "rejected" && !essentialEvents.includes(name)) {
+    return;
+  }
+
   const event = {
     id: globalThis.crypto?.randomUUID ? crypto.randomUUID() : String(Date.now()),
     name,
@@ -161,18 +171,18 @@ function calculateProposal(data, privateResult = null) {
     style,
     total,
     score,
-    source: privateResult?.source || (PRIVATE_SEARCH_API_URL ? "Motor privado de mayoristas" : "Demo local hasta conectar mayoristas"),
+    source: privateResult?.source || (privateSearchUrl ? "Motor privado de mayoristas" : "Demo local hasta conectar mayoristas"),
   };
 }
 
 async function searchPrivateEngine(data) {
-  if (!PRIVATE_SEARCH_API_URL) {
+  if (!privateSearchUrl) {
     return null;
   }
 
   try {
     engineSource.textContent = "Consultando motor privado de mayoristas...";
-    const response = await fetch(PRIVATE_SEARCH_API_URL, {
+    const response = await fetch(privateSearchUrl, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -293,6 +303,29 @@ function setMenuOpen(isOpen) {
 
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   siteMenu.classList.toggle("is-open", isOpen);
+  if (isOpen) {
+    trackEvent("menu_open");
+  }
+}
+
+function setupCookieBanner() {
+  if (!cookieBanner || !acceptAnalytics || !rejectAnalytics) {
+    return;
+  }
+
+  const storedConsent = localStorage.getItem("turmar-analytics-consent");
+  cookieBanner.classList.toggle("is-visible", !storedConsent);
+
+  acceptAnalytics.addEventListener("click", () => {
+    localStorage.setItem("turmar-analytics-consent", "accepted");
+    cookieBanner.classList.remove("is-visible");
+    trackEvent("analytics_accepted");
+  });
+
+  rejectAnalytics.addEventListener("click", () => {
+    localStorage.setItem("turmar-analytics-consent", "rejected");
+    cookieBanner.classList.remove("is-visible");
+  });
 }
 
 function renderResults(data, referenceTotal) {
@@ -416,6 +449,7 @@ copyProposal.addEventListener("click", async () => {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(currentProposal);
       copyProposal.textContent = "Copiado";
+      trackEvent("copy_proposal");
     } else {
       copyProposal.textContent = "Selecciona el texto";
     }
@@ -425,6 +459,14 @@ copyProposal.addEventListener("click", async () => {
   window.setTimeout(() => {
     copyProposal.textContent = "Copiar solicitud";
   }, 1500);
+});
+
+whatsappLink?.addEventListener("click", () => {
+  trackEvent("whatsapp_click");
+});
+
+emailLink?.addEventListener("click", () => {
+  trackEvent("email_click");
 });
 
 clearLeads?.addEventListener("click", () => {
@@ -457,6 +499,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+setupCookieBanner();
 trackEvent("page_view", { title: document.title });
 renderProposal(false);
 renderLeads();

@@ -8,6 +8,21 @@
       name="description"
       content="Agencia de viajes con motor privado para consultar mayoristas, preparar propuestas personalizadas y hacer seguimiento con agentes especializados."
     />
+    <meta name="theme-color" content="#08766f" />
+    <link rel="canonical" href="https://wewesito.github.io/viajes-turmar/" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="assets/logo-viajes-turmar-small.jpg" />
+    <link rel="apple-touch-icon" href="assets/logo-viajes-turmar-small.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Viajes Turmar" />
+    <meta property="og:title" content="Viajes Turmar | Agencia de viajes con motor privado" />
+    <meta
+      property="og:description"
+      content="Viajes a medida con acceso profesional a mayoristas privados y seguimiento de un agente especializado."
+    />
+    <meta property="og:url" content="https://wewesito.github.io/viajes-turmar/" />
+    <meta property="og:image" content="https://wewesito.github.io/viajes-turmar/assets/hero-travel-agency.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,7 +35,20 @@
         analyticsId: "",
         analyticsEndpoint: "",
         leadEndpoint: "",
+        searchEndpoint: "",
       };
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Viajes Turmar",
+        "url": "https://wewesito.github.io/viajes-turmar/",
+        "logo": "https://wewesito.github.io/viajes-turmar/assets/logo-viajes-turmar-small.jpg",
+        "description": "Agencia de viajes con motor privado, propuestas personalizadas y seguimiento de agentes especializados.",
+        "areaServed": ["Espana", "Europa", "Internacional"],
+        "sameAs": []
+      }
     </script>
   </head>
   <body>
@@ -668,6 +696,17 @@
         <a href="#legal">Legal</a>
       </span>
     </footer>
+
+    <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Preferencias de cookies">
+      <div>
+        <strong>Privacidad y medicion</strong>
+        <p>Usamos datos tecnicos necesarios y, si aceptas, medicion agregada para mejorar la experiencia.</p>
+      </div>
+      <div class="cookie-actions">
+        <button class="button ghost" id="rejectAnalytics" type="button">Solo necesarias</button>
+        <button class="button primary" id="acceptAnalytics" type="button">Aceptar analitica</button>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

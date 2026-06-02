@@ -1097,6 +1097,46 @@ select:focus {
   font-weight: 900;
 }
 
+.cookie-banner {
+  position: fixed;
+  z-index: 20;
+  right: 18px;
+  bottom: 18px;
+  width: min(520px, calc(100% - 36px));
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px;
+  border: 1px solid rgba(216, 227, 229, 0.92);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow);
+}
+
+.cookie-banner.is-visible {
+  display: flex;
+}
+
+.cookie-banner strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.96rem;
+}
+
+.cookie-banner p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.cookie-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
 .admin-page {
   min-height: 100vh;
   padding: 116px max(24px, calc((100vw - 1120px) / 2)) 60px;
@@ -1808,9 +1848,19 @@ select:focus {
   .proposal-header,
   .price-line,
   .crm-header,
+  .cookie-banner,
+  .cookie-actions,
   .footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .cookie-actions {
+    width: 100%;
+  }
+
+  .cookie-actions .button {
+    width: 100%;
   }
 
   .final-cta {

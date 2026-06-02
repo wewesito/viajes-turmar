@@ -1,0 +1,16 @@
+{
+  "name": "Viajes Turmar",
+  "short_name": "Turmar",
+  "description": "Agencia de viajes con motor privado y seguimiento de agente.",
+  "start_url": "/viajes-turmar/",
+  "display": "standalone",
+  "background_color": "#f7faf9",
+  "theme_color": "#08766f",
+  "icons": [
+    {
+      "src": "assets/logo-viajes-turmar-small.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ]
+}
