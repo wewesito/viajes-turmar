@@ -560,8 +560,18 @@ function renderLeads() {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  const submitBtn = form.querySelector("[type=submit]");
+  const originalText = submitBtn?.textContent || "";
+  if (submitBtn) {
+    submitBtn.classList.add("is-loading");
+    submitBtn.textContent = "Preparando solicitud";
+  }
   trackEvent("proposal_requested", getFormData());
   await renderProposal(true, true);
+  if (submitBtn) {
+    submitBtn.classList.remove("is-loading");
+    submitBtn.textContent = originalText;
+  }
 });
 
 form.addEventListener("input", () => {
@@ -634,8 +644,59 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+function setupScrollAnimations() {
+  const elements = document.querySelectorAll(".fade-up");
+  if (!elements.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -32px 0px" },
+  );
+
+  elements.forEach((el) => observer.observe(el));
+}
+
+function setupTopbarScroll() {
+  const topbar = document.querySelector(".topbar");
+  if (!topbar) return;
+
+  const update = () => topbar.classList.toggle("is-scrolled", window.scrollY > 32);
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+}
+
+function setupBackToTop() {
+  const btn = document.querySelector("#backToTop");
+  if (!btn) return;
+
+  window.addEventListener(
+    "scroll",
+    () => btn.classList.toggle("is-visible", window.scrollY > 500),
+    { passive: true },
+  );
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
 setupCookieBanner();
 setupQuickTabs();
+setupScrollAnimations();
+setupTopbarScroll();
+setupBackToTop();
 trackEvent("page_view", { title: document.title });
 renderProposal(false);
 renderLeads();
