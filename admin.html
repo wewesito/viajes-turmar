@@ -172,6 +172,31 @@
       </section>
     </main>
 
+    <script>
+      window.TURMAR_DEMO_BOOTSTRAP = fetch("data/demo-database.json")
+        .then((response) => (response.ok ? response.json() : null))
+        .then((database) => {
+          if (!database) return;
+          localStorage.setItem("viajes-turmar-leads", JSON.stringify(database.leads || []));
+          localStorage.setItem(
+            "viajes-turmar-events",
+            JSON.stringify(
+              (database.analytics || []).flatMap((event) =>
+                Array.from({ length: Math.min(event.count || 0, 35) }, (_, index) => ({
+                  id: `${event.name}-${index}`,
+                  name: event.name,
+                  createdAt: new Date(Date.now() - index * 3600000).toISOString(),
+                  payload: { demo: true },
+                })),
+              ),
+            ),
+          );
+        })
+        .catch(() => {});
+    </script>
     <script src="admin.js"></script>
+    <script>
+      window.TURMAR_DEMO_BOOTSTRAP?.finally(() => window.renderAdmin?.());
+    </script>
   </body>
 </html>
