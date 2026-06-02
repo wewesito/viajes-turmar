@@ -82,6 +82,8 @@ const sortResults = document.querySelector("#sortResults");
 const filterCategory = document.querySelector("#filterCategory");
 const menuToggle = document.querySelector("#menuToggle");
 const siteMenu = document.querySelector("#siteMenu");
+const quickTabs = [...document.querySelectorAll(".trip-tab")];
+const quickGrid = document.querySelector(".quick-grid");
 const cookieBanner = document.querySelector("#cookieBanner");
 const acceptAnalytics = document.querySelector("#acceptAnalytics");
 const rejectAnalytics = document.querySelector("#rejectAnalytics");
@@ -95,6 +97,89 @@ const currency = new Intl.NumberFormat("es-ES", {
   currency: "EUR",
   maximumFractionDigits: 0,
 });
+
+const quickTabContent = {
+  paquetes: [
+    {
+      tag: "Top venta",
+      title: "Islas griegas con Atenas",
+      detail: "8 noches · vuelos, hoteles boutique, ferry interno y revision de agente.",
+      price: "desde 1.480 EUR",
+    },
+    {
+      tag: "Premium",
+      title: "Japon esencial",
+      detail: "12 noches · Tokio, Kioto, ryokan, trenes y propuesta cultural organizada.",
+      price: "desde 3.420 EUR",
+    },
+    {
+      tag: "Naturaleza",
+      title: "Costa Rica aventura",
+      detail: "10 noches · volcan, selva, playa, traslados privados y eco lodges.",
+      price: "desde 2.260 EUR",
+    },
+  ],
+  "lunas-de-miel": [
+    {
+      tag: "Romantico",
+      title: "Maldivas con villa sobre el agua",
+      detail: "7 noches · resort 5 estrellas, traslados en hidroavion y detalles especiales.",
+      price: "desde 3.980 EUR",
+    },
+    {
+      tag: "Combinado",
+      title: "Sri Lanka y Maldivas",
+      detail: "12 noches · cultura, safari suave, playa final y hoteles boutique.",
+      price: "desde 4.450 EUR",
+    },
+    {
+      tag: "Mediterraneo",
+      title: "Santorini y Mykonos deluxe",
+      detail: "9 noches · suites con vistas, ferry, cenas seleccionadas y asistencia.",
+      price: "desde 2.950 EUR",
+    },
+  ],
+  familias: [
+    {
+      tag: "Familias",
+      title: "Disneyland Paris completo",
+      detail: "4 noches · hotel cercano, entradas, traslados y seguro recomendado.",
+      price: "desde 1.320 EUR",
+    },
+    {
+      tag: "Playa",
+      title: "Riviera Maya familiar",
+      detail: "9 noches · todo incluido, club infantil, excursiones suaves y vuelos.",
+      price: "desde 2.180 EUR",
+    },
+    {
+      tag: "Aventura suave",
+      title: "Costa Rica en familia",
+      detail: "10 noches · Arenal, Monteverde, playa y alojamientos preparados para ninos.",
+      price: "desde 2.640 EUR",
+    },
+  ],
+  circuitos: [
+    {
+      tag: "Cultural",
+      title: "Egipto con crucero por el Nilo",
+      detail: "8 noches · guia egiptologo, crucero superior, vuelos y visitas clave.",
+      price: "desde 1.690 EUR",
+    },
+    {
+      tag: "Europa",
+      title: "Italia clasica",
+      detail: "7 noches · Roma, Florencia, Venecia, trenes internos y hoteles centrados.",
+      price: "desde 1.540 EUR",
+    },
+    {
+      tag: "Larga distancia",
+      title: "Tailandia norte y playa",
+      detail: "11 noches · Bangkok, Chiang Mai, Phuket, traslados y experiencias locales.",
+      price: "desde 2.210 EUR",
+    },
+  ],
+};
 
 function getFormData() {
   const data = new FormData(form);
@@ -110,6 +195,53 @@ function getFormData() {
     budgetMax: Number(data.get("budgetMax")) || 0,
     preferences: data.getAll("preferences"),
   };
+}
+
+function normalizeTabKey(label) {
+  return label
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function renderQuickTab(key) {
+  if (!quickGrid) return;
+  const items = quickTabContent[key] || quickTabContent.paquetes;
+  quickGrid.innerHTML = items
+    .map(
+      (item) => `
+        <article class="quick-card">
+          <span>${item.tag}</span>
+          <h3>${item.title}</h3>
+          <p>${item.detail}</p>
+          <strong>${item.price}</strong>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function setupQuickTabs() {
+  if (!quickTabs.length || !quickGrid) return;
+
+  quickTabs.forEach((tab) => {
+    const key = normalizeTabKey(tab.textContent || "");
+    tab.dataset.tab = key;
+    tab.setAttribute("aria-pressed", tab.classList.contains("active") ? "true" : "false");
+    tab.addEventListener("click", () => {
+      quickTabs.forEach((item) => {
+        const isActive = item === tab;
+        item.classList.toggle("active", isActive);
+        item.setAttribute("aria-pressed", String(isActive));
+      });
+      renderQuickTab(key);
+      trackEvent("quick_tab_selected", { tab: key });
+    });
+  });
+
+  const activeTab = quickTabs.find((tab) => tab.classList.contains("active")) || quickTabs[0];
+  renderQuickTab(activeTab.dataset.tab || normalizeTabKey(activeTab.textContent || ""));
 }
 
 function trackEvent(name, payload = {}) {
@@ -500,6 +632,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 setupCookieBanner();
+setupQuickTabs();
 trackEvent("page_view", { title: document.title });
 renderProposal(false);
 renderLeads();

@@ -9,6 +9,7 @@ const ALLOWED_EVENTS = new Set([
   "whatsapp_click",
   "email_click",
   "menu_open",
+  "quick_tab_selected",
   "analytics_accepted",
   "leads_cleared",
 ]);
