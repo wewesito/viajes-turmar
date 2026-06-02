@@ -13,6 +13,8 @@ Esta web queda preparada como base profesional. Para convertirla en una operativ
 
 - Crear un proyecto Supabase.
 - Ejecutar `supabase/schema.sql` en el SQL editor.
+- Ejecutar `supabase/seed.sql` para cargar datos demo aleatorios.
+- Consultar `data/demo-database.json` como base demo editable en formato JSON.
 - Anadir estas variables en el hosting:
   - `SUPABASE_URL`
   - `SUPABASE_SERVICE_ROLE_KEY`
@@ -58,6 +60,7 @@ Prioridad recomendada:
 
 1. Pasar de GitHub Pages a Netlify para activar `/api/search`, `/api/lead` y `/api/analytics`.
 2. Crear Supabase y cargar `supabase/schema.sql`.
-3. Proteger el panel gestor con login.
-4. Conectar un webhook de avisos para cada solicitud.
-5. Sustituir datos demo por acuerdos y feeds reales de mayoristas.
+3. Ejecutar `supabase/seed.sql` para poblar CRM, analitica, propuestas y pagos demo.
+4. Proteger el panel gestor con login.
+5. Conectar un webhook de avisos para cada solicitud.
+6. Sustituir datos demo por acuerdos y feeds reales de mayoristas.
